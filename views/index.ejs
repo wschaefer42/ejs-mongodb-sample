@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Quote App</title>
+    <!--
+    <script src="jquery-3.6.0.min.js"></script>
+    -->
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/main.js"></script>
+</head>
+
+<body>
+<script>
+    function validateLogin() {
+        return (document.loginForm.user.length > 2)
+    }
+</script>
+
+<h1>Quotes v1.4</h1>
+<div>
+    <label for="user">Your Name:</label>
+    <input id="user" type="text" value="<%= username %>"/>
+    <button id="login-button" type="submit">Login</button>
+</div>
+<br/>
+<% var quote %>
+<h2>Add a new Quote</h2>
+<form id="input-form" action="/quotes" method="post">
+    <input type="text" placeholder="name" name="name" value="<%= quote ? quote.name : '' %>"/>
+    <input type="text" placeholder="quote" name="quote" value="<%= quote ? quote.quote : ''%>"/>
+    <input type="hidden" name="id" value="<%= quote ? quote._id : ''%>"/>
+    <!--
+    <p><%= quote ? quote._id : ''%></p>
+    -->
+    <button id="insert-button" type="submit">Submit</button>
+</form>
+<br/>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Quote</th>
+        <th>Like</th>
+        <th></th>
+    </tr>
+    <% quotes.forEach(quote => { %>
+        <tr>
+            <td><%= quote.name %></td>
+            <td><%= quote.quote %></td>
+            <td><%= quote.like ? quote.like : ''%></td>
+            <td style="width: 5%;">
+                <button onclick="likeQuote('<%= quote._id %>')">Like</button>
+            </td>
+        </tr>
+    <% }) %>
+</table>
+</body>
+</html>
